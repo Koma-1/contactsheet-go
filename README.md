@@ -7,10 +7,24 @@
 contactsheet-goは、指定されたディレクトリの画像ファイルからコンタクトシートを生成するコマンドラインツールです。画像をグリッドレイアウトで配置し、タイルサイズ、行・列数、マージン、パディング、補間方法、背景色などのオプションをカスタマイズできます。
 
 画像の各タイルへの配置方法を選択できます：
-- **fit**: アスペクト比を保持しながらタイル内に収める（中央配置）
+
 - **crop**: タイル領域を埋めるように画像を切り抜く（中央部分を切り抜き）
+- **fit**: アスペクト比を保持しながらタイル内に収める（中央配置）
 
 ## 例
+
+- crop
+
+```bash
+go run . -i ./examples/images -o ./examples/out \
+  -r 2 -c 3 -w 160 -h 120 \
+  --tilemode crop \
+  --prefix "crop_2x3_" \
+  --background-color "#82ab2b" \
+  --tile-background-color "#f8c41b"
+```
+
+![Sample Image 1](examples/out/crop_2x3_1.png)
 
 - fit
 
@@ -20,20 +34,7 @@ go run . -i ./examples/images -o ./examples/out \
   --tilemode fit --prefix "fit_2x3_"
 ```
 
-![Sample Image 1](examples/out/fit_2x3_1.png)
-
-- crop
-
-```bash
-go run . -i ./examples/images -o ./examples/out \
-  -r 2 -c 3 -w 160 -h 120 \
-  --tilemode crop \
-  --prefix "crop_2x3_" \
-  --background-color #d3d3d3 \
-  --tile-background-color white
-```
-
-![Sample Image 2](examples/out/crop_2x3_1.png)
+![Sample Image 2](examples/out/fit_2x3_1.png)
 
 - 背景透過
 
@@ -42,12 +43,22 @@ go run . -i ./examples/images -o ./examples/out \
   -r 2 -c 3 -w 128 -h 128 \
   --tilemode fit \
   --prefix "transparent_3x3_" \
-   --background-color #00000000 \
-   --tile-background-color #FF000033 \
+   --background-color "#00000000" \
+   --tile-background-color "#33333333" \
    --inner-margin 5 --outer-margin 5 --padding 10
 ```
 
 ![Sample Image 3](examples/out/transparent_3x3_1.png)
+
+- コンタクトシートのコンタクトシート
+
+```bash
+go run . -i ./examples/out -o ./examples -r 2 -c 2 \
+  --tile-background-color #33ccff
+```
+
+![Sample Image 4](examples/out_1.png)
+
 
 サンプル画像の引用元: http://www.ess.ic.kanagawa-it.ac.jp/app_images_j.html
 
